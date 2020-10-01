@@ -1,0 +1,46 @@
+<h3><div style="float: right">Navigation</div></h3>
+<br>
+<br>
+<div style="float: right"><a href="/dishes/new">Post a new Dish</div></a>
+<br>
+<div style="float: right"><a href="/mydishes">View all dishes you've posted!</div></a>
+<br>
+<div style="float: right"><a href="/dishes">View all dishes posted to Cooking made Simple!</div></a>
+<br>
+<div style="float: right"><a href="/logout"> Log Out </div></a>
+<br>
+<br>
+
+
+<h2 style="text-align:center; font-size:30px;"><%=@dish.name%></h1>
+<br>
+
+
+    <h3><img src=<%=@dish.pic_link %> width="250" height="200"></h3>
+    <h3>Cook Time: <%= @dish.cook_time%></h3>
+    <h3>Difficulty: <%= @dish.difficulty%></h3>
+    <br>
+    <br>
+    <h3><div style="align: left">Ingredients:</div></h3>
+    <br>
+    <% @dish.ingredients.split(",").each.with_index(1) do |ingredient, index| %>
+        <p><%="#{index}. #{ingredient}"%></p>
+    <% end %>
+   
+    <h3><div style="align: right">Directions:</div></h3>
+    <% @dish.directions.split(".").each.with_index(1) do |direction, index| %>
+        <p><%="#{index}. #{direction}"%></p>
+    <% end %>
+    
+    <form method="GET" action="/dishes/<%=@dish.id%>/edit">
+    <input type="submit" value="Edit Dish">
+</form>
+
+<br>
+    
+    
+    <form method="post" action="/dishes/<%=@dish.id%>">
+    <input type="hidden" name="_method" value="DELETE">
+    <input type="submit" value="Delete Dish">
+</form>
+<br>

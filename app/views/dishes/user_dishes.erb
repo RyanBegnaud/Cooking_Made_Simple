@@ -1,0 +1,48 @@
+<div style="float: right"><a href="/dishes/new">Post a new Dish</div></a>
+    <br>
+    <div style="float: right"><a href="/dishes">View all dishes posted by other Users!</div></a>
+    <br>
+    <div style="float: right"><a href="/logout"> Log Out </div></a>
+    <br>
+    <br>
+
+
+<h1 style="text-align:center">Welcome, <%= @user.username%>!</h1>
+<h1 style="text-align:center; font-size:30px;">Here are the dishes you've posted!</h1>
+<br>
+   
+<% @user.dishes.each.with_index(1) do |dish, i| %>
+    <h2><%="#{i}." %> <%= dish.name %></h2>
+    <h3><img src=<%=dish.pic_link %> width="250" height="200"></h3>
+    <h3>Posted by: <%= @user.username%></h3>
+    <h3>Cook Time: <%= dish.cook_time%></h3>
+    <h3>Difficulty: <%= dish.difficulty%></h3>
+    <br>
+    <br>
+    <h3><div style="align: left">Ingredients:</div></h3>
+    <br>
+    <% dish.ingredients.strip.split(",").each.with_index(1) do |ingredient, index| %>
+        <p><%="#{index}. #{ingredient}"%></p>
+    <% end %>
+   
+    <h3><div style="align: right">Directions:</div></h3>
+    <% dish.directions.split(".").each.with_index(1) do |direction, index| %>
+        <% if direction != " " && direction != "" %>
+            <p><%="#{index}. #{direction}"%></p>
+        <% end %>
+    <% end %>
+    
+    <form method="GET" action="/dishes/<%=dish.id%>/edit">
+    <input type="submit" value="Edit Dish">
+</form>
+
+<br>
+    
+    
+    <form method="post" action="/dishes/<%=dish.id%>">
+    <input type="hidden" name="_method" value="DELETE">
+    <input type="submit" value="Delete Dish">
+</form>
+<br>
+   
+<% end %>

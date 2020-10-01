@@ -1,0 +1,12 @@
+<h2> Edit Dish: <%=@dish.name%> </h2>
+<br>
+<form action="/dishes/<%= @dish.id %>" method="post">
+  <input id="hidden" type="hidden" name="_method" value="patch">
+  <p>Dish Name:<input type="text" name="name" value="<%= @dish.name %>"></p>
+  <p>Dish Cook Time:<input type="text" name="cook_time" value="<%= @dish.cook_time %>"></p>
+  <p>Dish Difficulty:<input type="text" name="difficulty" value="<%= @dish.difficulty %>"></p>
+  <p>Dish Ingredients:<textarea rows="5" name="ingredients" cols="25" value=</textarea><%= @dish.ingredients %></textarea>
+  <p>Dish Directions:<textarea rows="5" name="directions" cols="25" value=<textarea><%= @dish.directions %></textarea>
+  <p>Dish Link to picture:<input type="text" name="pic_link" value="<%= @dish.pic_link %>"></p>
+  <input type="submit" value="Submit">
+</form>
