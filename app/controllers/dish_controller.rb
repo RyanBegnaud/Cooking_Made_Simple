@@ -28,6 +28,7 @@ class DishController < ApplicationController
     end
 
     post '/dishes/new' do 
+        binding.pry 
         if params[:name] == ""
             erb :"errors/dish_name"
         elsif params[:cook_time] == ""
@@ -76,7 +77,7 @@ class DishController < ApplicationController
         if params[:name] != "" && params[:cook_time] != ""  && params[:difficulty] != ""  && params[:ingredients] != "" && params[:directions] != ""
             @dish.update(name: params[:name], cook_time: params[:cook_time], difficulty: params[:difficulty], ingredients: params[:ingredients], directions: params[:directions])
             
-            if params[:pic_link] != ""
+            if params[:pic_link] != "" && valid_link?
                 @dish.update(pic_link: params[:pic_link])
                 redirect to "/dishes/#{@dish.id}"
             else 

@@ -10,8 +10,8 @@
 
 <% @dishes.each.with_index(1) do |dish, i| %>
     <h2><%="#{i}." %> <%= dish.name %></h2>
-    <h3><%= dish.user_name %> </h3>
     <h3><img src=<%=dish.pic_link %> width="250" height="200"></h3>
+    <h3>Posted by: <%= dish.user_name %></h3>
     <h3>Cook Time: <%= dish.cook_time%></h3>
     <h3>Difficulty: <%= dish.difficulty%></h3>
     <br>

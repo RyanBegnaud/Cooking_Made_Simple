@@ -1,24 +1,23 @@
 class UserController < ApplicationController
-
-    get '/' do 
-        erb :welcome
-    end
     
     get '/signup' do 
         erb :"user/signup"
     end
 
     post '/signup' do 
-        if params[:username] == "" 
+        
+        if vemail? && unique_email?
+            @user = User.create(params)
+            session[:user_id] = @user.id
+            redirect to "/dishes"
+        elsif params[:username] == "" 
             redirect to '/signup/username/error'
         elsif params[:email] == ""
             redirect to '/signup/email/error'
         elsif params[:password] == ""
             redirect to '/signup/password/error'
         else 
-            @user = User.create(params)
-            session[:user_id] = @user.id
-            redirect to "/dishes"
+            redirect to "/signup"
         end
     end
 
@@ -39,8 +38,9 @@ class UserController < ApplicationController
     end
 
     post '/login' do 
+        binding.pry 
         user = User.find_by(username: params[:username])
-        if user 
+        if user && user.authenticate(params[:password])
             session[:user_id] = user.id
             redirect to "/dishes"
         else 
@@ -50,16 +50,6 @@ class UserController < ApplicationController
     
     get '/login/error' do 
         erb :"user/new"
-    end
-
-    post '/login/create' do 
-        @user = User.find_by(username: params[:username])
-        if @user 
-            session[:user_id] = @user.id
-            redirect to "/dishes/new"
-        else 
-            redirect to "/login/error"
-        end
     end
 
     get '/logout' do 
